@@ -1,0 +1,73 @@
+.home {
+    height: 100%;
+    width: 100%;
+}
+
+.home-container {
+    height: 100%;
+    width: 80%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.home-login-container {
+    height: 600px;
+    width: 400px;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.home-title-container {
+    height: 600px;
+    width: 700px;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.footer-container {
+    bottom: 0;
+    position: fixed;
+    height: 60px;
+    width: 100%;
+    border: inset rgb(0, 0, 0) 1px;
+    justify-content: end;
+}
+
+ul {
+    list-style-type: none;
+  }
+
+ul > li {
+    margin: 0 50px 0 20px;
+}
+
+.home-btn {
+    height: 40px;
+    width: 150px;
+    margin: 0 0 10px 0;
+}
+
+.home-title {
+    height: 20%;
+    width: 90%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.home-desc {
+    height: 10%;
+    width: 90%;
+    border: inset rgb(0, 0, 0) 1px;
+
+}
+
+.home-img-container {
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+    width: 90%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.home-img-box {
+    margin: 10px;
+    height: 70%;
+    width: 23%;
+    border: inset rgb(0, 0, 0) 1px;
+}
