@@ -1,0 +1,62 @@
+.login {
+    height: 100%;
+    width: 100%;
+}
+
+.login-pg-container {
+    height: 500px;
+    width: 600px;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.login-title, .login-signup-link {
+    height: 35%;
+    width: 100%;
+    justify-content: center;
+    align-items: end;
+}
+
+.login-container {
+    height: 30%;
+    width: 100%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.login-title-container {
+    width: 40%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.login-input-container {
+    width: 60%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.login-signup-link {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-link-container {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.login-signup {
+    /* border: inset rgb(0, 0, 0) 1px; */
+    width: 70%;
+}
+
+.login-home {
+    width: 20%;
+    /* border: inset rgb(0, 0, 0) 1px; */
+}
+
+.login-signup, .login-home {
+    justify-content: end;
+}
+
+
+.login-signup > p, .login-home > p {
+    margin: 0 10px 0 0;
+}
