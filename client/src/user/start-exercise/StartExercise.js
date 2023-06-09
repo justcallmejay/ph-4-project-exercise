@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from  'react-router-dom'
 import ExerciseCard from './ExerciseCard';
+import PerformedExercise from './PerformedExercise';
 import Set from './Set';
 import './StartExercise.css'
 
@@ -12,20 +13,16 @@ function StartExercise( { currentUser } ) {
     const options = {timeZone: "UTC",  month: "short", day: "numeric", year: "numeric"}
     const formattedDate = date.toLocaleDateString('en-Us', options)
 
-    console.log(formattedDate)
-
-
     const [ selectBp, setSelectBp ] = useState("")
     const [ exercise, setExercise ] = useState([])
     const [ selectExercise, setSelectExercise] = useState("")
+    const [ performedExercises, setPerformedExercises ] = useState([])
     const [ formData, setFormData ] = useState({
         reps: 0,
         weight: 0,
         reps_completed: 0
     })
     
-    console.log(formData)
-
     useEffect(() => {
         let url;
         if (selectBp === "All") {
@@ -37,19 +34,25 @@ function StartExercise( { currentUser } ) {
         .then(res => {
             if (res.ok) {
                 res.json().then(res => setExercise(res))
+            } else { return res.json() }
+        })
+        .then(data => {
+            if (data) { console.log(data.error) }
+        })
+        .catch(error => { console.log(error) })
+    }, [selectBp])
+
+    useEffect(() => {
+        fetch(`/user_workouts/?user_id=${currentUser.id}&date=${formattedDate}`)
+        .then(res => {
+            if (res.ok) {
+                res.json().then(res => setPerformedExercises(res))
             } else {
                 return res.json()
             }
         })
-        .then(data => {
-            if (data) {
-                console.log(data.error)
-            }
-        })
-        .catch(error => [
-            console.log(error)
-        ])
-    }, [selectBp])
+    }, [selectExercise])
+
     
     function handleSelectBp(e) {
         setSelectBp(e)
@@ -64,38 +67,59 @@ function StartExercise( { currentUser } ) {
         })
     }
 
-    const completed = ((formData.reps_completed / formData.reps) * 100)
-
-    console.log(completed)
-
     function handleSubmit(e) {
         e.preventDefault();
         const completed = ((formData.reps_completed / formData.reps) * 100)
-        fetch('/user_workout', {
+        fetch('/user_workouts', {
             method: "POST",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({
                 user_id: currentUser.id,
                 workout_id: selectExercise.id,
-                weight: parseInt(formData.weight, 10),
-                reps: parseInt(formData.reps, 10),
+                weight: formData.weight,
+                reps: formData.reps,
                 percent_completed: completed,
                 date: formattedDate
             })
         })
         .then(res => {
             if (res.ok) {
-                res.json().then(res => console.log(res.json()))
+                return res.json()
+            } else {
+                return res.json()
             }
         })
         .then(data => {
-            if (data) {
-                console.log(data.errors)
-            }
+            if (data) { console.log(data.errors) }
         })
-        .catch(error => {
-            console.log(error)
-        })
+        .catch(error => { console.log(error) })
+        setSelectExercise("");
+    }
+
+    function handleDeletePerformedExercise(id) {
+        const deleteExercise = performedExercises.filter(ex => ex.id !== id) 
+        setPerformedExercises(deleteExercise)
+    }
+
+    function deleteLastRoutine(index, id) {
+        if (index === performedExercises.length - 1) {
+            fetch(`/user_workouts/${id}`, {
+                method: "DELETE",
+            })
+            .then(res => {
+                res.json().then(res => handleDeletePerformedExercise(res))
+            })
+            .then(error => {
+                if (error) {
+                    console.log(error.errors)
+                }
+            })
+            .catch(error => {
+                if (error) {
+                    console.log(error)
+                }
+            })
+        }
     }
     
     return(
@@ -116,8 +140,10 @@ function StartExercise( { currentUser } ) {
                     </div>
                 </div>
                 : ""}
-                <div className='completed-exercise-container'>
+                <div className='completed-exercise-container fl'>
                     <h5>Completed Exercises:</h5>
+                    {performedExercises.map((perEx, i) => 
+                    <PerformedExercise perEx={perEx} key={perEx.id} index={i} deleteLastRoutine={deleteLastRoutine} arrayLength={performedExercises.length}/>)}
                 </div>
                 <form className='selected-exercise' onSubmit={handleSubmit}>
                         {selectExercise ?
