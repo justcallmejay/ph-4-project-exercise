@@ -1,23 +1,50 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Home from './Home';
+import Login from './Login';
+import Signup from './Signup';
+import User from './user/User.js'
 import './App.css';
 
 function App() {
+
+  const [ currentUser, setCurrentUser ] = useState(false)
+
+  console.log(currentUser)
+
+  useEffect(() => {
+    fetch('/authorized')
+    .then(res => {
+      if (res.ok) {
+        res.json().then(user => { setCurrentUser(user)})
+      }
+    })
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {currentUser ? 
+      <BrowserRouter>
+      <Switch>
+        <Route path={`/user/${currentUser.username}`}>
+          <User currentUser={currentUser}/>
+        </Route>
+      </Switch>
+      </BrowserRouter>
+      :
+      <BrowserRouter>
+        <Switch>
+        <Route path='/signup'>
+            <Signup/>
+          </Route>
+          <Route path='/login'>
+            <Login setCurrentUser={setCurrentUser}/>
+          </Route>
+          <Route path='/'>
+            <Home/>
+          </Route>
+        </Switch>
+      </BrowserRouter>}
     </div>
   );
 }
