@@ -1,0 +1,23 @@
+.performed-exercise {
+    width: 95%;
+    height: 15%;
+    margin: 10px 0 0 0;
+    border: inset rgba(0, 0, 0, 0.3) 1px;
+    border-radius: 5px;
+}
+
+.performed-exercise-attr {
+    width: 90%;
+    height: 100%;
+}
+
+.performed-exercise-attr > h6 {
+    margin: 10px;
+    /* padding: 0 20px 0 0px; */
+    /* border-right: inset rgba(0, 0, 0, 0.4) 1px; */
+}
+
+.delete-container {
+    width: 10%;
+    height: 100%;
+}
