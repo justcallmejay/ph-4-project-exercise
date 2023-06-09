@@ -1,0 +1,38 @@
+.selected-exercise-goal, .result {
+    height: 25%;
+    width: 100%;
+    border: inset rgb(0 ,0, 0) 1px;
+}
+
+.selected-exercise-fields {
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    border-right: inset rgb(0 ,0, 0) 1px;
+}
+
+.start-exercise-input {
+    width: 40px;
+    margin: 5px;
+}
+
+.selected-exercise-fields-input {
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.selected-exercise-fields-input > h5 {
+    margin: 5px;
+}
+
+.result {
+    justify-content: end;
+    align-items: center;
+}
+
+.selected-exercise-submit {
+    width: 100%;
+    height: 50%;
+    border: inset rgb(0, 0, 0) 1px;
+}
