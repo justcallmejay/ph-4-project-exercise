@@ -1,0 +1,75 @@
+.start-exercise {
+    height: 100%;
+    width: 100%;
+}
+
+.start-exercise-container {
+    height: 1000px;
+    width: 500px;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.start-exercise-container > h4 {
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+
+.start-exercise-bp-container {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 13%;
+    background-color: rgb(253, 248, 239);
+}
+
+.bp-label {
+    height: 30px;
+    width: 100px;
+    margin: 5px;
+    border-radius: 10px;
+    border: inset rgba(0, 0, 0, 0.158) 1px;
+    background-color: rgb(255, 255, 255)
+
+}
+
+.bp-label:hover {
+    cursor: pointer;
+    border: none;
+    background-color: rgb(255, 131, 114);
+    color: rgb(255, 255, 255)
+}
+
+.start-exercise-select-container {
+    width: 500px;
+    height: 450px;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.start-exercise-select-field {
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 95%;
+    height: 400px;
+    border: inset rgb(0, 0, 0) 1px;
+    overflow-y: auto;
+}
+
+.start-exercise-back-container {
+    justify-content: center;
+    width: 500px;
+    height: 50px;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.selected-exercise {
+    height: 150px;
+    width: 100%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.completed-exercise-container {
+    height: 248px;
+    width: 100%;
+    border: inset rgb(0, 0, 0) 1px;
+
+}
