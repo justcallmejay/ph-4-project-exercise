@@ -1,0 +1,65 @@
+.signup {
+    height: 100%;
+    width: 100%;
+
+}
+
+.signup-container {
+    height: 600px;
+    width: 500px;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.signup-label {
+    height: 20%;
+    justify-content: center;
+    align-items: end;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.signup-field {
+    height: 50%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.signup-input-field-container, .signup-input-label-container {
+    flex-direction: column;
+    /* justify-content: center; */
+}
+
+.signup-input-label-container {
+    height: 100%;
+    width: 30%;
+    border: inset rgb(0, 0, 0) 1px;
+    align-items: end;
+}
+
+.signup-input-label-container > p {
+    margin: 15px 0 10px 0;
+}
+
+.signup-input-field-container {
+    width: 70%;
+}
+
+input[type="text"], input[type="password"] {
+    height: 25px;
+    width: 70%;
+}
+
+input[type="text"], input[type="password"], .signup-error {
+    margin: 0 0 0 10px;
+}
+
+.signup-field-btn {
+    height: 30%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signup-error {
+    height: 15px;
+    width: 70%;
+    /* border: inset rgb(0, 0, 0) 1px; */
+}
