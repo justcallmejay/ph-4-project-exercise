@@ -1,0 +1,42 @@
+.exercise-card {
+    height: 70%;
+    width: 45%;
+    border: inset rgb(0, 0, 0) 1px;
+    margin: 10px;
+}
+
+.exercise-card:hover {
+    cursor: pointer;
+}
+
+.exercise-name {
+    width: 100%;
+    height: 10%;
+}
+
+.exercise-img-container {
+    width: 100%;
+    height: 50%;
+}
+
+.exercise-img {
+    height: 100%;
+    width: 90%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.exercise-type {
+    flex-direction: column;
+    justify-content: end;
+    height: 25%;
+    width: 100%;
+}
+
+.ex-field {
+    height: 20px;
+    width: 100%;
+}
+
+.ex-field > h5 {
+    margin: 0 0 0 10px;
+}
