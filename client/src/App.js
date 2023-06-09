@@ -4,6 +4,7 @@ import Home from './Home';
 import Login from './Login';
 import Signup from './Signup';
 import User from './user/User.js'
+import StartExercise from './user/start-exercise/StartExercise'
 import './App.css';
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
       {currentUser ? 
       <BrowserRouter>
       <Switch>
+        <Route path={`/user/${currentUser.username}/start-exercise`}>
+          <StartExercise currentUser={currentUser}/>
+        </Route>
         <Route path={`/user/${currentUser.username}`}>
           <User currentUser={currentUser}/>
         </Route>
