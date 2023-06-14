@@ -4,6 +4,7 @@ import ExerciseCard from './ExerciseCard';
 import PerformedExercise from './PerformedExercise';
 import Set from './Set';
 import './StartExercise.css'
+import FilterExercise from './FilterExercise';
 
 function StartExercise( { currentUser } ) {
 
@@ -13,15 +14,37 @@ function StartExercise( { currentUser } ) {
     const options = {timeZone: "UTC",  month: "short", day: "numeric", year: "numeric"}
     const formattedDate = date.toLocaleDateString('en-Us', options)
 
+    console.log(date)
+
     const [ selectBp, setSelectBp ] = useState("")
     const [ exercise, setExercise ] = useState([])
     const [ selectExercise, setSelectExercise] = useState("")
+    const [ filterExercise, setFilterExercise ] = useState("")
+    const [ searchExercise, setSearchExercise ] = useState("")
     const [ performedExercises, setPerformedExercises ] = useState([])
+    const [ eraseInput, setEraseInput ] = useState(false)
     const [ formData, setFormData ] = useState({
         reps: 0,
         weight: 0,
-        reps_completed: 0
+        reps_completed: 0,
+        intensity: 0
     })
+
+    useEffect(() => {
+        if (eraseInput) {
+            setFormData({
+                reps: 0,
+                weight: 0,
+                intensity: 0
+            })
+        }
+
+    }, [eraseInput])
+
+    console.log(formData.intensity)
+    console.log(formData.reps)
+
+    console.log(selectExercise)
     
     useEffect(() => {
         let url;
@@ -53,19 +76,32 @@ function StartExercise( { currentUser } ) {
         })
     }, [selectExercise])
 
+    const getExerciseByDifficulty = exercise.filter(ex => {
+        if (filterExercise === '') return true;
+
+        return ex.difficulty === filterExercise
+    })
+
+    const searchExerciseInput = getExerciseByDifficulty.filter(ex => 
+        ex.name.toUpperCase().includes(searchExercise.toUpperCase()))
     
     function handleSelectBp(e) {
         setSelectBp(e)
     }
 
     function handleChange(e) {
+        if (eraseInput === true) {
+            setEraseInput(!eraseInput)
+        }
         const { name, value } = e.target
         setFormData(acc => {
             return{
-                ...acc, [name]: parseInt(value) || ""
+                ...acc, [name]: parseFloat(value, 1) || ""
             }
         })
     }
+
+    console.log(eraseInput)
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -78,12 +114,15 @@ function StartExercise( { currentUser } ) {
                 workout_id: selectExercise.id,
                 weight: formData.weight,
                 reps: formData.reps,
+                intensity: formData.intensity,
                 percent_completed: completed,
                 date: formattedDate
             })
         })
         .then(res => {
             if (res.ok) {
+                setSelectExercise("");
+                setEraseInput(false)
                 return res.json()
             } else {
                 return res.json()
@@ -93,7 +132,6 @@ function StartExercise( { currentUser } ) {
             if (data) { console.log(data.errors) }
         })
         .catch(error => { console.log(error) })
-        setSelectExercise("");
     }
 
     function handleDeletePerformedExercise(id) {
@@ -125,35 +163,43 @@ function StartExercise( { currentUser } ) {
     return(
         <div className='start-exercise cc'>
             <div className='start-exercise-container'>
-                <h4>Select bodypart you want to target:</h4>
+                <h4 className='cc'>{formattedDate}</h4>
+                <h4>Select bodypart(s) targeted today:</h4>
                 <div className='start-exercise-bp-container fl'>
                     {parts.map((part, i) => 
                     <div className='bp-label cc' value={part} key={i} onClick={(e) => handleSelectBp(e.target.getAttribute('value'))}>{part}</div>)}
                 </div>
                 {selectBp ?
                 <div className='start-exercise-select-container cc'>
-                    <h5>Select an exercise:</h5>
+                    <div className='start-exercise-filter rc'>
+                        <div className='start-exercise-label'>
+                            <h5>Select an exercise:</h5>
+                        </div>
+                        <div className='filter-exercise rc'>
+                            <FilterExercise setFilterExercise={setFilterExercise} searchExercise={searchExercise} setSearchExercise={setSearchExercise}/>
+                        </div>
+                    </div>
                     <div className='start-exercise-select-field fl'>
                         {exercise ?
-                        exercise.map(ex =>
+                        searchExerciseInput.map(ex =>
                         <ExerciseCard ex={ex} key={ex.id} setSelectExercise={setSelectExercise}/> ) : ""}
                     </div>
                 </div>
                 : ""}
                 <div className='completed-exercise-container fl'>
-                    <h5>Completed Exercises:</h5>
+                        <h5>Completed Exercises:</h5>
                     {performedExercises.map((perEx, i) => 
                     <PerformedExercise perEx={perEx} key={perEx.id} index={i} deleteLastRoutine={deleteLastRoutine} arrayLength={performedExercises.length}/>)}
                 </div>
                 <form className='selected-exercise' onSubmit={handleSubmit}>
                         {selectExercise ?
-                            <Set selectExercise={selectExercise} formData={formData} handleChange={handleChange}/>
+                            <Set setEraseInput={setEraseInput} eraseInput={eraseInput} selectExercise={selectExercise} formData={formData} handleChange={handleChange}/>
                         : ""}
                 </form>
             </div>
             <div className='start-exercise-back-container fl'>
                 <Link to={`/user/${currentUser.username}`}>
-                    <h6>Click here to finish working out or return home</h6>
+                    <h6>Click here to finish working out or to return home</h6>
                 </Link>
             </div>
     </div>
