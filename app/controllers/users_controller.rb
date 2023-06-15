@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
     def create
         user = User.create(user_params)
-        if user.valid?(:account_setup)
+        if user.valid?
             render json: user, status: :created
         else
             render json: { errors: user.errors }, status: :unprocessable_entity
@@ -19,10 +19,10 @@ class UsersController < ApplicationController
     def update
         user = User.find_by(id: params[:id])
         if user
-            user.update(user_params)
+            user.update!(user_params)
             render json: user
         else
-            render json: { error: "Not found"}, status: :not_found
+            render json: { errors: user.errors}, status: :not_found
         end
     end
 
@@ -41,6 +41,17 @@ class UsersController < ApplicationController
         render json: user, status: :ok
     end
 
+    # def update_account
+    #     user = User.find_by(id: params[:id])
+      
+    #     if user.valid?
+    #       user.update(user_param)
+    #       render json: user, status: :ok
+    #     else
+    #       render json: { errors: user.errors }, status: :unprocessable_entity
+    #     end
+    #   end
+
     private 
 
     def user_params
@@ -53,4 +64,5 @@ class UsersController < ApplicationController
             :weight
         )
     end
+
 end
