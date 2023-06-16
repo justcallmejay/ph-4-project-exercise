@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from  'react-router-dom'
 import ExerciseCard from './ExerciseCard';
 import PerformedExercise from './PerformedExercise';
+import RPEexplained from './RPEexplained';
 import Set from './Set';
 import './StartExercise.css'
 import FilterExercise from './FilterExercise';
@@ -14,9 +15,7 @@ function StartExercise( { currentUser } ) {
     const options = {timeZone: "UTC",  month: "short", day: "numeric", year: "numeric"}
     const formattedDate = date.toLocaleDateString('en-Us', options)
 
-    console.log(date)
-
-  
+    const [ toggleDisplay, setToggleDisplay ] = useState(false)
     const [seconds, setSeconds] = useState(0);
     const [ errors, setErrors ] = useState([])
     const [ selectBp, setSelectBp ] = useState("")
@@ -45,11 +44,6 @@ function StartExercise( { currentUser } ) {
         }
 
     }, [eraseInput])
-
-    console.log(formData.intensity)
-    console.log(seconds)
-
-    console.log(selectExercise)
     
     useEffect(() => {
         let url;
@@ -106,7 +100,9 @@ function StartExercise( { currentUser } ) {
         })
     }
 
-    console.log(formData.reps_completed === 0)
+    function handleToggleDisplay() {
+        setToggleDisplay(toggleDisplay => !toggleDisplay)
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -176,6 +172,8 @@ function StartExercise( { currentUser } ) {
     
     return(
         <div className='start-exercise cc'>
+        {toggleDisplay ? 
+            <RPEexplained handleToggleDisplay={handleToggleDisplay}/> : ""}
             <div className='start-exercise-container'>
                 <h4 className='cc'>{formattedDate}</h4>
                 <h4>Select bodypart(s) targeted today:</h4>
@@ -207,8 +205,8 @@ function StartExercise( { currentUser } ) {
                 </div>
                 <form className='selected-exercise' onSubmit={handleSubmit}>
                         {selectExercise ?
-                            <Set seconds={seconds} setSeconds={setSeconds} currentUser={currentUser} setEraseInput={setEraseInput} eraseInput={eraseInput} selectExercise={selectExercise} errors={errors} formData={formData} handleChange={handleChange}/>
-                        : ""}
+                            <Set handleToggleDisplay={handleToggleDisplay} seconds={seconds} setSeconds={setSeconds} currentUser={currentUser} setEraseInput={setEraseInput} eraseInput={eraseInput} selectExercise={selectExercise} errors={errors} formData={formData} handleChange={handleChange}/>
+                            : ""}
                 </form>
             </div>
             <div className='start-exercise-back-container fl'>
