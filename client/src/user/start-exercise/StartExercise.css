@@ -110,3 +110,51 @@
     border: inset rgb(0, 0, 0) 1px;
 
 }
+
+/*popup*/
+
+.intensity-info-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0 ,0 , 0.05);
+}
+
+.intensity-info {
+    width: 500px;
+    height: 600px;
+    background-color: white;
+    box-shadow: 0 5px 20px 5px rgba(0, 0, 0, 0.1);
+    border: rgb(255, 255, 255);
+    border-radius: 20px;
+}
+
+.intensity-img-container {
+    width: 90%;
+    height: 40%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.intensity-img {
+    width: 80%;
+    height: 100%;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.intensity-explanation-container {
+    width: 90%;
+    height: 40%;
+    border: inset rgb(0, 0, 0) 1px;
+    padding: 15px 0 0 0;
+    overflow-y: scroll;
+}
+
+.intensity-explanation {
+    width: 85%;
+    height: 100%;
+}
+
+.delete-current-routine {
+    /* border: inset rgb(0, 0, 0); */
+    justify-content: end;
+}
