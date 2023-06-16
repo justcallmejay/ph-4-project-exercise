@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Timer from './Timer';
+import { HiOutlineInformationCircle } from 'react-icons/hi'
 import './Set.css'
 
-function Set( { selectExercise, formData, handleChange, setEraseInput, eraseInput } ) {
+function Set( { seconds, setSeconds, selectExercise, formData, handleChange, setEraseInput, eraseInput, errors, handleToggleDisplay } ) {
 
     function handleEraseCheckBox(e) {
         setEraseInput(e.target.checked)
     }
-
-    console.log(typeof(formData.intensity))
-
 
     return(
         <>
@@ -30,11 +29,14 @@ function Set( { selectExercise, formData, handleChange, setEraseInput, eraseInpu
             {formData.weight > 0 && formData.reps > 0 ?
             <>
                 <div className='selected-exercise-goal result fl'>
+                        {selectExercise.isometric? 
+                            <Timer seconds={seconds} setSeconds={setSeconds}/>
+                         : ""}
                     <div className='reps-performed-container rc'>
                         <h5>Reps Performed:</h5><input className='start-exercise-input' name='reps_completed' type='number' min='0' max='100' value={formData.reps_completed} onChange={handleChange}/>
                     </div>
                     <div className='perceived-difficulty-container rc'>
-                        <h5>RPE:</h5>
+                        <h5>RPE:</h5><HiOutlineInformationCircle onClick={handleToggleDisplay}/>
                         <select name='intensity' onChange={handleChange}>
                             <option value=''></option>
                             <option value='7'>7</option>
@@ -47,7 +49,9 @@ function Set( { selectExercise, formData, handleChange, setEraseInput, eraseInpu
                         </select>
                     </div>
                 </div>
-                <div className='selected-exercise-submit cc'>
+                <div className='selected-exercise-submit fl'>
+                    {errors ? 
+                    <h6>{errors.intensity}</h6> : ""}
                     <button>Submit</button>
                 </div>
             </> 
