@@ -16,6 +16,9 @@ function StartExercise( { currentUser } ) {
 
     console.log(date)
 
+  
+    const [seconds, setSeconds] = useState(0);
+    const [ errors, setErrors ] = useState([])
     const [ selectBp, setSelectBp ] = useState("")
     const [ exercise, setExercise ] = useState([])
     const [ selectExercise, setSelectExercise] = useState("")
@@ -27,7 +30,8 @@ function StartExercise( { currentUser } ) {
         reps: 0,
         weight: 0,
         reps_completed: 0,
-        intensity: 0
+        intensity: 0,
+        timer: 0
     })
 
     useEffect(() => {
@@ -35,14 +39,15 @@ function StartExercise( { currentUser } ) {
             setFormData({
                 reps: 0,
                 weight: 0,
-                intensity: 0
+                intensity: 0,
+                reps_completed: 0
             })
         }
 
     }, [eraseInput])
 
     console.log(formData.intensity)
-    console.log(formData.reps)
+    console.log(seconds)
 
     console.log(selectExercise)
     
@@ -101,11 +106,19 @@ function StartExercise( { currentUser } ) {
         })
     }
 
-    console.log(eraseInput)
+    console.log(formData.reps_completed === 0)
 
     function handleSubmit(e) {
         e.preventDefault();
+        let intensityInput;
         const completed = ((formData.reps_completed / formData.reps) * 100)
+
+        if (formData.reps_completed === 0) {
+            intensityInput = 10
+        } else {
+            intensityInput = formData.intensity
+        }
+
         fetch('/user_workouts', {
             method: "POST",
             headers: {"Content-Type" : "application/json"},
@@ -114,9 +127,10 @@ function StartExercise( { currentUser } ) {
                 workout_id: selectExercise.id,
                 weight: formData.weight,
                 reps: formData.reps,
-                intensity: formData.intensity,
+                intensity: intensityInput,
                 percent_completed: completed,
-                date: formattedDate
+                date: formattedDate,
+                timer: seconds
             })
         })
         .then(res => {
@@ -129,7 +143,7 @@ function StartExercise( { currentUser } ) {
             }
         })
         .then(data => {
-            if (data) { console.log(data.errors) }
+            if (data) { setErrors(data.errors) }
         })
         .catch(error => { console.log(error) })
     }
@@ -193,13 +207,13 @@ function StartExercise( { currentUser } ) {
                 </div>
                 <form className='selected-exercise' onSubmit={handleSubmit}>
                         {selectExercise ?
-                            <Set setEraseInput={setEraseInput} eraseInput={eraseInput} selectExercise={selectExercise} formData={formData} handleChange={handleChange}/>
+                            <Set seconds={seconds} setSeconds={setSeconds} currentUser={currentUser} setEraseInput={setEraseInput} eraseInput={eraseInput} selectExercise={selectExercise} errors={errors} formData={formData} handleChange={handleChange}/>
                         : ""}
                 </form>
             </div>
             <div className='start-exercise-back-container fl'>
                 <Link to={`/user/${currentUser.username}`}>
-                    <h6>Click here to finish working out or to return home</h6>
+                    <h6>Click here to finish workout, or to return home</h6>
                 </Link>
             </div>
     </div>
