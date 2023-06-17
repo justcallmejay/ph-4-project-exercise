@@ -1,7 +1,7 @@
 import React from 'react';
 import './ExerciseCard.css'
 
-function ExerciseCard( { ex, setSelectExercise } ) {
+function ExerciseCard( { ex, setSelectExercise, displayWorkoutUserCount, selectExercise } ) {
     return(
         <div className='exercise-card' onClick={() => setSelectExercise(ex)}>
             <div className='exercise-name rc'>
@@ -23,6 +23,10 @@ function ExerciseCard( { ex, setSelectExercise } ) {
                 <div className='ex-field'>
                     <h5>Difficulty: {ex.difficulty}</h5>
                 </div>
+                {ex.name === selectExercise.name  && ex.kind === selectExercise.kind ? 
+                <div className='ex-field'>
+                    <h5>Used by {displayWorkoutUserCount} {displayWorkoutUserCount > 1 ? "Users" : "User"}</h5>
+                </div> : "" }
             </div>
 
         </div>
