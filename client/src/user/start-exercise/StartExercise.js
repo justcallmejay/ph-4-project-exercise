@@ -15,8 +15,9 @@ function StartExercise( { currentUser } ) {
     const options = {timeZone: "UTC",  month: "short", day: "numeric", year: "numeric"}
     const formattedDate = date.toLocaleDateString('en-Us', options)
 
+    const [ displayWorkoutUserCount, setDisplayWorkoutUserCount ] = useState('') 
     const [ toggleDisplay, setToggleDisplay ] = useState(false)
-    const [seconds, setSeconds] = useState(0);
+    const [ seconds, setSeconds ] = useState(0);
     const [ errors, setErrors ] = useState([])
     const [ selectBp, setSelectBp ] = useState("")
     const [ exercise, setExercise ] = useState([])
@@ -33,6 +34,8 @@ function StartExercise( { currentUser } ) {
         timer: 0
     })
 
+    console.log(formData.intensity)
+
     useEffect(() => {
         if (eraseInput) {
             setFormData({
@@ -42,8 +45,17 @@ function StartExercise( { currentUser } ) {
                 reps_completed: 0
             })
         }
-
     }, [eraseInput])
+
+    console.log(selectExercise)
+
+    useEffect(() => {
+        if (selectExercise) {
+            fetch(`/get_user_counts/?id=${selectExercise.id}`)
+            .then(res => res.json())
+            .then(res => setDisplayWorkoutUserCount(res))
+        }
+    }, [selectExercise])
     
     useEffect(() => {
         let url;
@@ -133,6 +145,7 @@ function StartExercise( { currentUser } ) {
             if (res.ok) {
                 setSelectExercise("");
                 setEraseInput(false)
+                setSeconds(0)
                 return res.json()
             } else {
                 return res.json()
@@ -194,7 +207,7 @@ function StartExercise( { currentUser } ) {
                     <div className='start-exercise-select-field fl'>
                         {exercise ?
                         searchExerciseInput.map(ex =>
-                        <ExerciseCard ex={ex} key={ex.id} setSelectExercise={setSelectExercise}/> ) : ""}
+                        <ExerciseCard ex={ex} key={ex.id} setSelectExercise={setSelectExercise} selectExercise={selectExercise} displayWorkoutUserCount={displayWorkoutUserCount}/> ) : ""}
                     </div>
                 </div>
                 : ""}
