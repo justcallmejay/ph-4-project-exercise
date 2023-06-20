@@ -77,6 +77,27 @@
     color: rgb(255, 255, 255)
 }
 
+.calendar-legend-container {
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    border: inset rgba(0, 0, 0, 0.3) 1px;
+}
+
+.calendar-legend-box {
+    height: 50%;
+    width: 40px;
+    margin: 0 10px 0 20px;
+}
+
+.green {
+    background-color: rgba(41, 168, 31, 0.829);
+}
+
+.white {
+    border: inset rgba(0, 0, 0, 0.2) 2px;
+}
+
 /*Pop-up*/
 
 .display-exercise-container {
