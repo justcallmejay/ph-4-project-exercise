@@ -6,11 +6,14 @@ import './Profile.css'
 
 function Profile( { currentUser, updateUser } ) {
 
+    console.log(currentUser.id)
+
     const history = useHistory()
 
     const [ toggleDelete, setToggleDelete ] = useState(false)
     const [ displayEdit, setDisplayEdit ] = useState(null)
     const [ toggleEdit, setToggleEdit ] = useState(null)
+    const [ errors, setErrors ] = useState([])
     const [ formData, setFormData ] = useState({
         username: currentUser.username,
         email: currentUser.email,
@@ -22,11 +25,23 @@ function Profile( { currentUser, updateUser } ) {
     }
 
     function handleMouseOver(obj) {
+      if (formData.username === currentUser.username && 
+          formData.email === currentUser.email && formData.weight === currentUser.weight)
         setDisplayEdit(obj)
     }
 
     function handleEdit(obj) {
+      if (formData.username === currentUser.username && 
+        formData.email === currentUser.email && formData.weight === currentUser.weight)
         setToggleEdit(obj)
+    }
+
+    function cancelEdit(obj) {
+      setToggleEdit('');
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        [obj]: currentUser[obj]
+      }));
     }
 
     function handleChange(e) {
@@ -49,38 +64,40 @@ function Profile( { currentUser, updateUser } ) {
         })
     }
 
-    //fix validates
-    //fix update
-
-    function handleUpdateChange() {
-        fetch(`/users/${currentUser.id}`, {
-            method: "PATCH",
-            headers: { "Content-Type" : "application/json"},
-            body: JSON.stringify({
-                username: formData.username,
-                email: formData.email,
-                weight: formData.weight
-            })
-        })
-        .then(res => {
-            if (res.ok) {
-                res.json().then((res) => { 
-                    updateUser(res) 
-                    history.push(`/user/${res.username}`)
-                })
-                setToggleEdit('')
-            }
-        })
-        .then(data => {
-            if (data)
-            console.log(data.error)
-        })
-        .catch(error => {
-            if (error) {
-                console.log(error)
-            }
-        })
+    function handleClearErrorMsg() {
+      if (errors) {
+        setErrors([])
+      } 
     }
+
+    function handleUpdateChange(obj) {
+      let attr = obj
+      let key = formData[obj]
+          fetch(`/users/${currentUser.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              [attr] : key
+              }),
+          })
+            .then((res) => {
+              if (res.ok) {
+                console.log(res)
+                res.json().then((res) => {
+                  updateUser(res);
+                  console.log(res)
+                  history.push(`/user/${res.username}`);
+                });
+              } else {
+                res.json().then((error) => {
+                  setErrors(error.errors);
+                });
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+      }
 
     return(
         <>
@@ -95,28 +112,27 @@ function Profile( { currentUser, updateUser } ) {
             </div>
             : ""}
         <div className='profile rc'>
-            <div className='profile-container fl'>
+            <div className='profile-container fl' onClick={handleClearErrorMsg}>
                 <div className='profile-label'>
                     {toggleEdit === 'username' ? 
-                    <Confirm quote={'Enter new Username:'} handleArg={'username'} formData={formData.username} handleChange={handleChange} handleUpdateChange={handleUpdateChange} handleEdit={handleEdit} />
+                    <Confirm quote={'Enter new Username:'} cancelEdit={cancelEdit} handleArg={'username'} errors={errors} formData={formData.username} handleChange={handleChange} handleUpdateChange={handleUpdateChange} handleEdit={handleEdit} />
                     :
                     <Edit handleArg={'username'} quote={'Username:'} currentUser={currentUser.username} displayEdit={displayEdit} handleMouseOver={handleMouseOver} handleEdit={handleEdit}/>
                     }
-
                     {toggleEdit === 'email' ? 
-                    <Confirm quote={'Enter new email'} handleArg={'email'} formData={formData.email} handleChange={handleChange} handleUpdateChange={handleUpdateChange} handleEdit={handleEdit} />
+                    <Confirm quote={'Enter new email'} cancelEdit={cancelEdit} handleArg={'email'} errors={errors} formData={formData.email} handleChange={handleChange} handleUpdateChange={handleUpdateChange} handleEdit={handleEdit} />
                     :
                     <Edit handleArg={'email'} quote={'Email:'} currentUser={currentUser.email} displayEdit={displayEdit} handleMouseOver={handleMouseOver} handleEdit={handleEdit}/>
                     }
 
                     {toggleEdit === 'weight' ? 
-                    <Confirm quote={'Enter new weight:'} handleArg={'weight'} formData={formData.weight} handleChange={handleChange} handleUpdateChange={handleUpdateChange} handleEdit={handleEdit} />
+                    <Confirm quote={'Enter new weight:'} cancelEdit={cancelEdit} handleArg={'weight'} errors={errors} formData={formData.weight} handleChange={handleChange} handleUpdateChange={handleUpdateChange} handleEdit={handleEdit} />
                     :
                     <Edit handleArg={'weight'} quote={'Weight:'} currentUser={currentUser.weight} displayEdit={displayEdit} handleMouseOver={handleMouseOver} handleEdit={handleEdit}/>
                     }
                 </div>
-                <div className='delete-acc-container fl' onClick={handleDeleteToggle}>
-                    <p>Delete account?</p>
+                <div className='delete-acc-container fl' >
+                    <p onClick={handleDeleteToggle}>Delete account?</p>
                 </div>
             </div>
         </div>

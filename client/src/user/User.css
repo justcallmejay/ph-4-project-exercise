@@ -1,0 +1,120 @@
+.user {
+    height: 100%;
+    width: 100%;
+}
+
+.user-container {
+    height: 800px;
+    width: 600px;
+    border: inset rgba(0, 0, 0, 0.03) 2px;
+    border-radius: 20px;
+}
+
+.user-profile-container {
+    height: 20%;
+    width: 100%;
+    background-color: rgba(182, 213, 241, 0.441);
+    justify-content: space-between;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.user-img-container {
+    height: 100%;
+    width: 30%;
+    /* border: inset rgb(0, 0, 0) 1px; */
+}
+
+.user-img {
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    height: 85%;
+    width: 85%;
+    border: solid rgb(255, 255, 255) 3px;
+}
+
+.user-img-head {
+    height: 30%;
+    width: 30%;
+    border-radius: 40px;
+    background-color: rgb(255, 255, 255);
+}
+
+.user-img-body {
+    height: 40%;
+    width: 32%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: 5px 0 0 0;
+    background-color: rgb(255, 255, 255);
+
+}
+
+.user-name {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 68%;
+    /* border: inset rgb(0, 0, 0) 1px; */
+}
+
+.user-logout {
+    justify-content: end;
+}
+
+.user-logout > p {
+    border: none;
+    margin: 10px;
+    /* background-color: rgba(151, 194, 233, 0.441); */
+}
+
+.user-logout > p:hover {
+    cursor: pointer;
+    color: rgb(253, 0, 0);
+    text-decoration: underline;
+}
+
+.user-activity-container {
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 80%;
+    width: 100%;
+}
+
+.user-exercise {
+    height: 150px;
+    width: 500px;
+    border-radius: 10px;
+    /* border: inset rgba(0, 0, 0, 0.1) 1px; */
+    box-shadow: 0 5px 15px 5px rgba(0, 0, 0, 0.3);
+}
+
+.user-exercise-img-container {
+    height: 100%;
+    width: 30%;
+}
+
+.user-exercise-img {
+    width: 95%;
+    height: 95%;
+    border-right: inset rgba(0, 0, 0, 0.3) 2px;
+}
+
+.user-exercise-desc-container {
+    height: 100%;
+    width: 70%;
+    border-right: inset rgba(0, 0, 0, 0.3) 2px;
+    color: black;
+}
+
+.user-exercise-desc {
+    height: 90%;
+    width: 90%;
+    /* border: inset rgb(0, 0, 0) 1px; */
+}
+
+li {
+    text-decoration: none;
+}

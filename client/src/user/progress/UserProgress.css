@@ -1,0 +1,87 @@
+.user-progress {
+    height: 100%;
+    width: 100%;
+}
+
+.calendar-head {
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 90px;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.calendar-date {
+    width: 60%;
+    height: 100%;
+}
+
+.calendar-btn {
+    width: 20%;
+    height: 100%;
+    background-color: rgba( 0, 0, 0, 0.1);
+    border: none;
+}
+
+.calendar-btn:hover {
+    cursor: pointer;
+}
+
+.calendar-days {
+    width: 100%;
+    height: 40px;
+    background-color: rgba(252, 92, 44, 0.597);
+    color: rgb(255, 255, 255)
+}
+
+.days-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 14.3%;
+    height: 100%;
+}
+
+.calendar-body {
+    height: 1080px;
+    width: 100%;
+    border: inset rgb(0, 0, 0) 1px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+
+
+.day-box {
+    border: inset rgba(0, 0, 0, 0.3) 1px;
+    padding: 10px;
+}
+
+.date {
+    height: 30px;
+    border-radius: 10px;
+    margin: 10px 0 0 0;
+    border: inset rgba(0, 0, 0, 0.2) 2px;
+}
+
+.date:hover, .completed:hover {
+    cursor: pointer;
+}
+
+.completed {
+    height: 30px;
+    border-radius: 10px;
+    margin: 10px 0 0 0;
+    background-color: rgba(41, 168, 31, 0.829);
+    color: rgb(255, 255, 255)
+}
+
+/*Pop-up*/
+
+.display-exercise-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.1);
+}

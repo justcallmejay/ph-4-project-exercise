@@ -18,9 +18,8 @@ function Signup() {
     })
 
     function toggleErrorDisplay() {
-        if (errors) {
+            setPwMatch([]);
             setErrors([])
-        }
     }
 
     function handleChange(e) {
@@ -51,30 +50,27 @@ function Signup() {
         })
         .then(res => {
             if (res.ok) {
-                res.json().then(res => console.log(res))
-                history.push('/')
+                res.json().then((res) => {
+                console.log(res);
+                history.push('/');
+            });
             } else {
-                return res.json()
-            }
-        })
-        .then(data => {
-            if (data) {
-                setErrors(data.errors)
-                }
-        })
-        .catch(error => {
-            if (error) {
-                console.log(error)
-                }
+                res.json().then((error) => {
+                  setErrors(error.errors);
+                });
+              }
             })
+            .catch((error) => {
+              console.log(error);
+            });
         }
-    }
+      }
 
     return(
-        <div className='signup cc'  onClick={toggleErrorDisplay}>
+        <div className='signup fl'  onClick={toggleErrorDisplay}>
             <form className='signup-container' onSubmit={handleSubmit}>
                 <div className='signup-label fl'>
-                    <p>Sign Up</p>
+                    <p>Register</p>
                 </div>
                 <div className='signup-field rc'>
                     <div className='signup-input-label-container fl'>
@@ -95,22 +91,26 @@ function Signup() {
                             {errors ? <h6>{errors.username} </h6> : ""}
                         </div>
                         <input type='password' name='password' value={formData.password} onChange={handleChange} placeholder='password'/>
-                        <div className='signup-error'></div>
+                        <div className='signup-error rc'>
+                            {errors ? <h6>{errors.password} </h6> : ""}
+                        </div>
                         <input type='password' name='reenterPassword' value={formData.reenterPassword} onChange={handleChange} placeholder='re-enter password'/>
                         <div className='signup-error rc'>{pwMatch ? <h6>{pwMatch}</h6> : ""}</div>
                         <input type='text' name='email' value={formData.email} onChange={handleChange} placeholder='email'/>
                         <div className='signup-error rc'>
                             {errors ? <h6>{errors.email}</h6> : ""}
                         </div>
-                        <input type='text' name='weight' value={formData.weight} onChange={handleChange} placeholder='weight'/>
-                        <div className='signup-error rc'></div>
+                        <input className='signup-weight' type='number' name='weight' value={formData.weight} min='3' max='1000' step='0.1'onChange={handleChange} placeholder='weight'/>
+                        <div className='signup-error rc'>
+                            {errors ? <h6>{errors.weight}</h6> : ""}
+                        </div>
                     </div>
                 </div>
                 <div className='signup-field-btn fl'>
-                   <button onClick={handleSubmit}>Sign Up</button>
+                   <button className='home-btn' onClick={handleSubmit}>Sign Up</button>
                 </div>
             </form>
-                <div className='back-btn'>
+                <div className='back-btn fl'>
                    <Link to='/'>
                        <p>{'<<< Back'}</p>
                    </Link>

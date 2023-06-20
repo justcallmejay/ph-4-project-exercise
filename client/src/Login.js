@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import './Login.css'
 
-function Login() {
+function Login( { updateUser } ) {
 
     const history = useHistory()
 
@@ -35,6 +35,7 @@ function Login() {
         .then(res => {
             if (res.ok) {
                 res.json().then(user => {
+                updateUser(user)
                 history.push(`/user/${user.username}`)
             })
             } else {

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  kind: MyString
+  muscle: MyString
+  difficulty: MyString
+  image: MyString
+  isometric: false
+
+two:
+  name: MyString
+  kind: MyString
+  muscle: MyString
+  difficulty: MyString
+  image: MyString
+  isometric: false

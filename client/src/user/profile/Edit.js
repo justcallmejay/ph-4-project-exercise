@@ -5,11 +5,17 @@ function Edit( { handleArg, quote, currentUser, displayEdit, handleMouseOver, ha
     console.log(typeof(handleArg))
 
     return(
-    <div className='profile-stat fl' onMouseEnter={() => handleMouseOver(handleArg)}>
-        <h3 className='pr-label fl'>{quote}</h3>
-        <h3 className='pr-input fl'>{currentUser}</h3>
+    <div className='profile-confirm-container rc' onMouseEnter={() => handleMouseOver(handleArg)}>
+        <div className='profile-stat-edit fl' >
+            <div className='profile-input-container rc'>
+                <h3 className='pr-label fl'>{quote}</h3>
+                <h3 className='pr-input fl'>{currentUser}</h3>
+            </div>
+        </div>
+        <div className='pr-edit cc'>
         {displayEdit === handleArg ? 
-        <h6 className='pr-edit cc' onClick={() => handleEdit(handleArg)}>edit</h6> : "" }
+            <h6  onClick={() => handleEdit(handleArg)}>edit</h6> : "" }
+        </div>
     </div>
     )
 }

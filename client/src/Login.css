@@ -38,8 +38,9 @@
 }
 
 .login-link-container {
-    width: 100%;
+    width: 600px;
     justify-content: space-between;
+    border: inset rgb(0, 0, 0) 1px;
 }
 
 .login-signup {

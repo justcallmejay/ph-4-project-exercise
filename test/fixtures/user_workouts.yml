@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  workout: one
+  reps: 1
+  weight: 1
+  percent_completed: 1.5
+  date: 2023-06-09 03:58:02
+
+two:
+  user: two
+  workout: two
+  reps: 1
+  weight: 1
+  percent_completed: 1.5
+  date: 2023-06-09 03:58:02

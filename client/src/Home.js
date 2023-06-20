@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { TfiWrite } from 'react-icons/tfi';
+import { BiRun } from 'react-icons/bi';
+import { CgTrack } from 'react-icons/cg';
 import './Home.css'
 
 function Home() {
@@ -19,20 +22,23 @@ function Home() {
                 </div>
                 <div className='home-title-container cc'>
                     <div className='home-title rc'>
-                        <h1>Some Exercise App</h1>
+                        <h1>Exercise App</h1>
                     </div>
                     <div className='home-desc rc'>
-                        <p>Select a workout. Submit. Finish.</p>
+                        <p>Select exercises. Submit. Track.</p>
                     </div>
                     <div className='home-img-container fl'>
-                        <div className='home-img-box'>
-                            img
+                        <div className='home-img-box cc'>
+                        <TfiWrite size={70}/>
+                        <p>Choose today's exercises.</p>
                         </div>
-                        <div className='home-img-box'>
-                            img
+                        <div className='home-img-box cc'>
+                        <BiRun size={70}/>
+                        <p>Perform each as you go!</p>
                         </div>
-                        <div className='home-img-box'>
-                            img
+                        <div className='home-img-box cc'>
+                        <CgTrack size={70}/>
+                        <p>Monitor the progress of your fitness levels!</p>
                         </div>
                     </div>
                 </div>

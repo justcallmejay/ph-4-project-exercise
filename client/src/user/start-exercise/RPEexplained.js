@@ -1,4 +1,5 @@
 import React from 'react';
+import struggle from '../../image/struggle.png'
 
 function RPEexplained( { handleToggleDisplay } ) {
     return(
@@ -6,8 +7,8 @@ function RPEexplained( { handleToggleDisplay } ) {
             <div className='intensity-info-container rc'>
         <div className='intensity-info cc'>
             <div className='intensity-img-container rc'>
-                <div className='intensity-img'>
-                    <p>img</p>
+                <div className='intensity-img rc'>
+                    <img src={struggle} alt='tired'/>
                 </div>
             </div>
             <div className='intensity-explanation-container rc'>

@@ -106,8 +106,10 @@
 }
 
 .completed-exercise-container > h5 {
+    display: flex;
+    justify-content: center;
     width: 100%;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
 
 }
 
@@ -132,21 +134,22 @@
 .intensity-img-container {
     width: 90%;
     height: 40%;
-    border: inset rgb(0, 0, 0) 1px;
+    background-color: rgb(248, 248, 248);
 }
 
 .intensity-img {
     width: 80%;
     height: 100%;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
 }
 
 .intensity-explanation-container {
     width: 90%;
     height: 40%;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     padding: 15px 0 0 0;
     overflow-y: scroll;
+    margin: 0 0 10px 0;
 }
 
 .intensity-explanation {
