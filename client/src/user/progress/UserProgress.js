@@ -87,6 +87,12 @@ function UserProgress( { currentUser } ) {
               );
             })}
             </div>
+            <div className='calendar-legend-container fl'>
+              <div className='calendar-legend-box green'/>
+              <p>= All exercises performed on that day are 100% completed</p>
+              <div className='calendar-legend-box white'/>
+              <p>= One or more exercises performed on that day are incomplete</p>
+            </div>
             </div>
           </>
             )
