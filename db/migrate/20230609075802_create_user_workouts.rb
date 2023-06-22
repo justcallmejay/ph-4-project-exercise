@@ -5,7 +5,9 @@ class CreateUserWorkouts < ActiveRecord::Migration[7.0]
       t.belongs_to :workout, null: false, foreign_key: true
       t.integer :reps
       t.integer :weight
-      t.float :percent_completed
+      t.boolean :bw
+      t.integer :reps_performed
+      t.float :reps_completed
       t.float :intensity
       t.integer :timer
       t.datetime :date
