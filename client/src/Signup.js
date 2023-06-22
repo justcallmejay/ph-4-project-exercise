@@ -7,7 +7,7 @@ function Signup() {
     const history = useHistory()
 
     const [ errors, setErrors ] = useState([])
-    const [ pwMatch, setPwMatch ] = useState("")
+    const [ pwMatch, setPwMatch ] = useState('')
     const [ formData, setFormData ] = useState({
         name: "",
         username: "",
@@ -18,8 +18,10 @@ function Signup() {
     })
 
     function toggleErrorDisplay() {
-            setPwMatch([]);
-            setErrors([])
+        setErrors([])
+        if (pwMatch) {
+            setPwMatch('')
+        }
     }
 
     function handleChange(e) {
@@ -51,8 +53,8 @@ function Signup() {
         .then(res => {
             if (res.ok) {
                 res.json().then((res) => {
-                console.log(res);
-                history.push('/');
+                    history.push('/');
+                    console.log(res);
             });
             } else {
                 res.json().then((error) => {
@@ -95,7 +97,9 @@ function Signup() {
                             {errors ? <h6>{errors.password} </h6> : ""}
                         </div>
                         <input type='password' name='reenterPassword' value={formData.reenterPassword} onChange={handleChange} placeholder='re-enter password'/>
-                        <div className='signup-error rc'>{pwMatch ? <h6>{pwMatch}</h6> : ""}</div>
+                        <div className='signup-error rc'>
+                            {pwMatch ? <h6>{pwMatch}</h6> : ""}
+                        </div>
                         <input type='text' name='email' value={formData.email} onChange={handleChange} placeholder='email'/>
                         <div className='signup-error rc'>
                             {errors ? <h6>{errors.email}</h6> : ""}
