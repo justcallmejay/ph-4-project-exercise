@@ -124,7 +124,7 @@ function Set( { seconds, setFormData, setSeconds, selectExercise, formData, hand
                     {errors ? 
                     <>
                     <h6>{errors.intensity}</h6>
-                    <h6>{errors.percent_completed}</h6>
+                    <h6>{errors.reps_performed}</h6>
                     <h6>{errors.weight}</h6>
                     <h6>{errors.timer}</h6>
                     </>

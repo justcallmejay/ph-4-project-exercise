@@ -35,8 +35,6 @@ function StartExercise( { currentUser } ) {
         bw: false
     })
 
-    console.log(formData.weight)
-
     useEffect(() => {
         if (eraseInput) {
             setFormData({
@@ -47,8 +45,6 @@ function StartExercise( { currentUser } ) {
             })
         }
     }, [eraseInput])
-
-    // console.log(selectExercise)
 
     useEffect(() => {
         if (selectExercise) {
