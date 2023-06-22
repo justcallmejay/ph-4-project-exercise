@@ -4,6 +4,9 @@ function Timer( { seconds, setSeconds } ) {
 
   const [isRunning, setIsRunning] = useState(false);
 
+
+  console.log(typeof(seconds))
+
   function startTimer() {
     setIsRunning(true);
   };

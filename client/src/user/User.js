@@ -7,7 +7,7 @@ import UserLink from './UserLink';
 
 function User( { currentUser, setCurrentUser } ) {
 
-    console.log(currentUser)
+    // console.log(currentUser)
 
     const history = useHistory()
 

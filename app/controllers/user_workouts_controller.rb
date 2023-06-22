@@ -35,10 +35,12 @@ class UserWorkoutsController < ApplicationController
             :workout_id,
             :weight,
             :reps,
-            :percent_completed,
+            :reps_performed,
             :date,
             :intensity,
-            :timer
+            :timer,
+            :bw,
+            :reps_completed
         )
     end
 

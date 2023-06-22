@@ -6,7 +6,7 @@ import './Profile.css'
 
 function Profile( { currentUser, updateUser } ) {
 
-    console.log(currentUser.id)
+    // console.log(currentUser.id)
 
     const history = useHistory()
 
@@ -24,12 +24,14 @@ function Profile( { currentUser, updateUser } ) {
         setToggleDelete(toggleDelete => !toggleDelete)
     }
 
+    //This prevents user from displaying edit button while a different input field is rendered
     function handleMouseOver(obj) {
       if (formData.username === currentUser.username && 
           formData.email === currentUser.email && formData.weight === currentUser.weight)
         setDisplayEdit(obj)
     }
 
+    //this prevents user from clicking edit button while an input field is changed
     function handleEdit(obj) {
       if (formData.username === currentUser.username && 
         formData.email === currentUser.email && formData.weight === currentUser.weight)
@@ -82,10 +84,10 @@ function Profile( { currentUser, updateUser } ) {
           })
             .then((res) => {
               if (res.ok) {
-                console.log(res)
+                // console.log(res)
                 res.json().then((res) => {
                   updateUser(res);
-                  console.log(res)
+                  // console.log(res)
                   history.push(`/user/${res.username}`);
                 });
               } else {

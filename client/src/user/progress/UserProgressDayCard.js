@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './UserProgressDayCard.css'
 import { BsCheck2 } from 'react-icons/bs'
-import { HiXMark } from 'react-icons/hi2'
 
 function UserProgressDayCard( { displayExerciseDay } ) {
+
+    const [ toggleIncomplete, setToggleIncomplete ] = useState(false)
+
+    function handleToggleIncomplete(ex) {
+        if (ex.reps_completed > 100 || ex.reps_completed < 100) {
+            setToggleIncomplete(true)
+        }
+    }
+
+    function handleToggleIncompleteLeave() {
+        setToggleIncomplete(false)
+    }
+
     return(
         <div className='user-progress-day-card'>
             {displayExerciseDay.map((ex, i) => 
@@ -15,7 +27,14 @@ function UserProgressDayCard( { displayExerciseDay } ) {
                     <h5>Weight: {ex.weight} lbs.</h5>
                    <h5>Reps: {ex.reps}</h5>
                    <h5>Intensity: {ex.intensity}</h5>
-                   <h5>Completed: {ex.percent_completed >= 100 ? <BsCheck2 /> : ex.percent_completed.toFixed(1)}</h5>
+                   <h5 onMouseEnter={() => handleToggleIncomplete(ex)} onMouseLeave={handleToggleIncompleteLeave}>Completed: 
+                   {ex.reps_completed == 100 ? 
+                   <BsCheck2 /> : 
+                        toggleIncomplete ? 
+                        <span>{ex.reps_performed}reps</span> :
+                        <span>{ex.reps_completed.toFixed(1)}%</span>
+                   }
+                   </h5>
                 </div>
             </div>
                 )}

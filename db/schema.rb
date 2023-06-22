@@ -16,7 +16,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_075802) do
     t.integer "workout_id", null: false
     t.integer "reps"
     t.integer "weight"
-    t.float "percent_completed"
+    t.boolean "bw"
+    t.integer "reps_performed"
+    t.float "reps_completed"
     t.float "intensity"
     t.integer "timer"
     t.datetime "date"

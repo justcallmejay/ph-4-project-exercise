@@ -2,7 +2,7 @@ import React from 'react';
 
 function Edit( { handleArg, quote, currentUser, displayEdit, handleMouseOver, handleEdit } ) {
 
-    console.log(typeof(handleArg))
+    // console.log(typeof(handleArg))
 
     return(
     <div className='profile-confirm-container rc' onMouseEnter={() => handleMouseOver(handleArg)}>

@@ -47,7 +47,7 @@ function UserProgress( { currentUser } ) {
       setDisplayExerciseDay(obj)
     }
 
-    console.log(displayExerciseDay)
+    // console.log(displayExerciseDay)
 
     function handleToggleDisplay() {
       setToggleDisplay(toggleDisplay => !toggleDisplay)

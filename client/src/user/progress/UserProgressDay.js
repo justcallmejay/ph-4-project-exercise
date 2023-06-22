@@ -6,12 +6,12 @@ const UserProgressDay = ({ currentDate, day, convert, areDatesTheSame, exerciseC
     areDatesTheSame(new Date(currentDate.getFullYear(), currentDate.getMonth(), day), newObject.date),
   );
 
-  console.log(filteredExercises)
+  // console.log(filteredExercises)
   
 
-  const completedExercises = (filteredExercises.map(obj => obj.percent_completed).reduce((sum, a) => sum + a, 0) / filteredExercises.length) >= 100
+  const completedExercises = (filteredExercises.map(obj => obj.reps_completed).reduce((sum, a) => sum + a, 0) / filteredExercises.length) >= 100
 
-  console.log((filteredExercises.map(obj => obj.percent_completed).reduce((sum, a) => sum + a, 0) / filteredExercises.length) >= 1)
+  // console.log((filteredExercises.map(obj => obj.percent_completed).reduce((sum, a) => sum + a, 0) / filteredExercises.length) >= 1)
 
   return (
     <span className="day-box" >
