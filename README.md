@@ -28,15 +28,22 @@ While some exercises require equipment such as barbell, dumbbells, cables, etc.,
 
 Additionally, the app contains isometric exercises where a user hold a certain position for a period of time.  A timer is provided and tracked for user progression.
 
+![](./client/image/ezgif-4-e8a9c90f80.gif)
+
 Because this app does not monitor specific sets for exercises, every submission is considered one set.  When the user selects the same exercise again, the previous values of weight and targeted repeitions are already provided.  If the user would like to change it, that person may do so on either field, or click the clear button to reset the fields.
 
 User can head on to the Progression page where all exercises were performed on that day.  Click on the button to see all the exercises performed.
 
 To get the most out of this app, do not remove exercises just because it is incomplete.  To be able to track incompleted sets allow consistency and accurate progression.  The user may delete only the last set submitted in case of accidental input values.
 
+![](.client/image/ezgif-4-3781a039ac.gif)
+
 # Phase-Related Features 
 
 One of the big aspects of this project is validations.  When a user enter insufficient data at the input field, the frontend will return an error below an prevent faulty data at the database.  Four links where error handling occurs are Signup, Login, Start Exercise, and Profile.
+
+![](.client/image/ezgif-4-08f0349255.gif)
+
 
 Additionally, another aspect is the login and signup page, where user creates an account (signup) to login.  This covers authentication and authorization, respectfully.  You may take a look at the behind-the-scenes at the users controllers, application controller, and session controller, (and their models), as well as the application.rb in the config file.
 
