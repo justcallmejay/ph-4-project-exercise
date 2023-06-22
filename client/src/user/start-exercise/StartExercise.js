@@ -29,12 +29,13 @@ function StartExercise( { currentUser } ) {
     const [ formData, setFormData ] = useState({
         reps: 0,
         weight: 0,
-        reps_completed: 0,
+        reps_performed: 0,
         intensity: 0,
-        timer: 0
+        timer: 0,
+        bw: false
     })
 
-    console.log(formData.intensity)
+    console.log(formData.weight)
 
     useEffect(() => {
         if (eraseInput) {
@@ -42,12 +43,12 @@ function StartExercise( { currentUser } ) {
                 reps: 0,
                 weight: 0,
                 intensity: 0,
-                reps_completed: 0
+                reps_performed: 0
             })
         }
     }, [eraseInput])
 
-    console.log(selectExercise)
+    // console.log(selectExercise)
 
     useEffect(() => {
         if (selectExercise) {
@@ -71,7 +72,7 @@ function StartExercise( { currentUser } ) {
             } else { return res.json() }
         })
         .then(data => {
-            if (data) { console.log(data.error) }
+            if (data) { setErrors(data.error) }
         })
         .catch(error => { console.log(error) })
     }, [selectBp])
@@ -118,14 +119,8 @@ function StartExercise( { currentUser } ) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        let intensityInput;
-        const completed = ((formData.reps_completed / formData.reps) * 100)
 
-        if (formData.reps_completed === 0) {
-            intensityInput = 10
-        } else {
-            intensityInput = formData.intensity
-        }
+        const completed = ((formData.reps_performed / formData.reps) * 100)
 
         fetch('/user_workouts', {
             method: "POST",
@@ -135,8 +130,10 @@ function StartExercise( { currentUser } ) {
                 workout_id: selectExercise.id,
                 weight: formData.weight,
                 reps: formData.reps,
-                intensity: intensityInput,
-                percent_completed: completed,
+                bw: formData.bw,
+                intensity: formData.intensity,
+                reps_performed: formData.reps_performed,
+                reps_completed: completed,
                 date: formattedDate,
                 timer: seconds
             })
@@ -144,7 +141,10 @@ function StartExercise( { currentUser } ) {
         .then(res => {
             if (res.ok) {
                 setSelectExercise("");
-                setEraseInput(false)
+                setEraseInput(false);
+                formData.reps_performed = 0;
+                formData.intensity = 0;
+                formData.bw = false;
                 setSeconds(0)
                 return res.json()
             } else {
@@ -212,13 +212,17 @@ function StartExercise( { currentUser } ) {
                 </div>
                 : ""}
                 <div className='completed-exercise-container fl'>
+                    {performedExercises.length > 0 ? 
+                    <>
                         <h5>Completed Exercises:</h5>
                     {performedExercises.map((perEx, i) => 
                     <PerformedExercise perEx={perEx} key={perEx.id} index={i} deleteLastRoutine={deleteLastRoutine} arrayLength={performedExercises.length}/>)}
-                </div>
+                    </>
+                : "" }
+                    </div>
                 <form className='selected-exercise' onSubmit={handleSubmit}>
                         {selectExercise ?
-                            <Set handleToggleDisplay={handleToggleDisplay} seconds={seconds} setSeconds={setSeconds} currentUser={currentUser} setEraseInput={setEraseInput} eraseInput={eraseInput} selectExercise={selectExercise} errors={errors} formData={formData} handleChange={handleChange}/>
+                            <Set setFormData={setFormData} handleToggleDisplay={handleToggleDisplay} seconds={seconds} setSeconds={setSeconds} currentUser={currentUser} setEraseInput={setEraseInput} eraseInput={eraseInput} selectExercise={selectExercise} errors={errors} formData={formData} handleChange={handleChange}/>
                             : ""}
                 </form>
             </div>
