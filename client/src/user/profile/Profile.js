@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Edit from './Edit'
 import Confirm from './Confirm';
+import { UserContext } from '../../context/account';
 import './Profile.css'
 
-function Profile( { currentUser, updateUser } ) {
+function Profile( { updateUser } ) {
 
-    // console.log(currentUser.id)
+    const { currentUser } = useContext(UserContext)
 
     const history = useHistory()
 

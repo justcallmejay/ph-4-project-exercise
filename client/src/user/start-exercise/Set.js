@@ -4,13 +4,12 @@ import { HiOutlineInformationCircle } from 'react-icons/hi'
 import { BsQuestion } from 'react-icons/bs'
 import './Set.css'
 
-function Set( { seconds, setFormData, setSeconds, selectExercise, formData, handleChange, setEraseInput, eraseInput, errors, handleToggleDisplay, currentUser } ) {
+function Set( { seconds, setFormData, setSeconds, radioSelect, setRadioSelect, selectExercise, formData, handleChange, setEraseInput, eraseInput, errors, handleToggleDisplay } ) {
 
     const numbers = ['0', '7', '8', '8.5', '9', '9.5', '10', '10.5']
 
 
     const [ toggleDisplay, setToggleDisplay ] = useState(false)
-    const [ radioSelect, setRadioSelect ] = useState(null)
 
     useEffect(() => {
         if (selectExercise.kind === 'Bodyweight' && radioSelect === 'bw') {
@@ -28,18 +27,16 @@ function Set( { seconds, setFormData, setSeconds, selectExercise, formData, hand
         }
     }, [radioSelect])
 
-    useEffect(() => {
-        if (selectExercise.kind === 'Bodyweight') {
-            formData.weight = 0;
-            setRadioSelect('bw')
-        } else {
-            setRadioSelect(null)
-        }
-    }, [selectExercise])
+    console.log(toggleDisplay)
 
-    console.log(formData.bw)
-
-    console.log(radioSelect)
+    // useEffect(() => {
+    //     if (selectExercise.kind === 'Bodyweight') {
+    //         formData.weight = 0;
+    //         setRadioSelect('bw')
+    //     } else {
+    //         setRadioSelect(null)
+    //     }
+    // }, [selectExercise])
 
     function handleEraseCheckBox(e) {
         setEraseInput(e.target.checked)

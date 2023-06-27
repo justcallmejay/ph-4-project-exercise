@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
@@ -7,19 +7,18 @@ import User from './user/User';
 import Profile from './user/profile/Profile';
 import StartExercise from './user/start-exercise/StartExercise';
 import UserProgress from './user/progress/UserProgress';
+import { UserContext } from './context/account';
 import './App.css';
 
 function App() {
 
-  const [ currentUser, setCurrentUser ] = useState(false)
-
-  // console.log(currentUser)
+  const { setCurrentUser, currentUser } = useContext(UserContext) 
 
   useEffect(() => {
     fetch('/authorized')
     .then(res => {
       if (res.ok) {
-        res.json().then((user) => { setCurrentUser(user)})
+        res.json().then((user) => { setCurrentUser(user) })
       }
     })
   }, [])
@@ -48,16 +47,16 @@ function App() {
             <BrowserRouter>
             <Switch>
             <Route path={`/user/${currentUser.username}/profile`}>
-                <Profile currentUser={currentUser} updateUser={updateUser}/>
+                <Profile updateUser={updateUser}/>
               </Route>
               <Route path={`/user/${currentUser.username}/progress`}>
-                <UserProgress currentUser={currentUser}/>
+                <UserProgress />
               </Route>
               <Route path={`/user/${currentUser.username}/start-exercise`}>
-                <StartExercise currentUser={currentUser}/>
+                <StartExercise />
               </Route>
               <Route path={`/user/${currentUser.username}`}>
-                <User currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+                <User />
               </Route>
             </Switch>
             </BrowserRouter>

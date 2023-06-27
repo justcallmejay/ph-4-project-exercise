@@ -25,7 +25,7 @@ function ExerciseCard( { ex, setSelectExercise, displayWorkoutUserCount, selectE
                 </div>
                 {ex.name === selectExercise.name  && ex.kind === selectExercise.kind ? 
                 <div className='ex-field'>
-                    <h5>Used by {displayWorkoutUserCount} {displayWorkoutUserCount > 1 ? "Users" : "User"}</h5>
+                    <h5>Used by {ex.users.length} {ex.users.length > 1 ? "Users" : "User"}</h5>
                 </div>
                  : "" }
             </div>

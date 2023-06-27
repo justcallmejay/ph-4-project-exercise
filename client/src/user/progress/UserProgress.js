@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+
 import UserProgressDay from './UserProgressDay';
 import moment from 'moment';
 import './UserProgress.css';
 import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs'
 import { getSortedDay, prevMonth, nextMonth, days, getMonthYear, areDatesTheSame } from './Range';
 import UserProgressDayCard from './UserProgressDayCard';
+import { UserContext } from '../../context/account';
 
+function UserProgress() {
 
-function UserProgress( { currentUser } ) {
+  const { currentUser } = useContext(UserContext) 
+  
 
     const options = { timeZone: "UTC", month: "short", day: "numeric", year: "numeric"};
     const date = new Date()

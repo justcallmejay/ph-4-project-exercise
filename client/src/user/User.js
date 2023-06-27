@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { FaRunning, FaCalendarAlt } from 'react-icons/fa' 
 import { ImProfile } from 'react-icons/im'
 import './User.css'
 import UserLink from './UserLink';
+import { UserContext } from '../context/account';
 
-function User( { currentUser, setCurrentUser } ) {
+function User() {
 
-    // console.log(currentUser)
+    const { setCurrentUser, currentUser } = useContext(UserContext) 
 
     const history = useHistory()
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from  'react-router-dom'
 import ExerciseCard from './ExerciseCard';
 import PerformedExercise from './PerformedExercise';
@@ -6,8 +6,12 @@ import RPEexplained from './RPEexplained';
 import Set from './Set';
 import './StartExercise.css'
 import FilterExercise from './FilterExercise';
+import { UserContext } from '../../context/account';
 
-function StartExercise( { currentUser } ) {
+
+function StartExercise( ) {
+
+    const { currentUser } = useContext(UserContext) 
 
     const parts = ['All', 'Glutes', 'Shoulders', 'Quads', 'Hamstrings', 'Abs', 'Back', 'Chest', 'Biceps', 'Triceps', 'Calves', 'Forearm']
 
@@ -15,11 +19,13 @@ function StartExercise( { currentUser } ) {
     const options = {timeZone: "UTC",  month: "short", day: "numeric", year: "numeric"}
     const formattedDate = date.toLocaleDateString('en-Us', options)
 
+    const [ radioSelect, setRadioSelect ] = useState(null)
+
     const [ displayWorkoutUserCount, setDisplayWorkoutUserCount ] = useState('') 
     const [ toggleDisplay, setToggleDisplay ] = useState(false)
     const [ seconds, setSeconds ] = useState(0);
     const [ errors, setErrors ] = useState([])
-    const [ selectBp, setSelectBp ] = useState("")
+    const [ selectBp, setSelectBp ] = useState(null)
     const [ exercise, setExercise ] = useState([])
     const [ selectExercise, setSelectExercise] = useState("")
     const [ filterExercise, setFilterExercise ] = useState("")
@@ -36,6 +42,17 @@ function StartExercise( { currentUser } ) {
     })
 
     useEffect(() => {
+        fetch(`/user_workouts/?user_id=${currentUser.id}&date=${formattedDate}`)
+        .then(res => {
+            if (res.ok) {
+                res.json().then(res => setPerformedExercises(res))
+            } else {
+                return res.json()
+            }
+        })
+    }, [])
+    
+    useEffect(() => {
         if (eraseInput) {
             setFormData({
                 reps: 0,
@@ -45,16 +62,26 @@ function StartExercise( { currentUser } ) {
             })
         }
     }, [eraseInput])
-
-    useEffect(() => {
-        if (selectExercise) {
-            fetch(`/get_user_counts/?id=${selectExercise.id}`)
-            .then(res => res.json())
-            .then(res => setDisplayWorkoutUserCount(res))
-        }
-    }, [selectExercise])
+    
     
     useEffect(() => {
+
+        //changes weight to zero if selected exercise bodyweight
+        if (selectExercise.kind === 'Bodyweight') {
+            formData.weight = 0;
+            setRadioSelect('bw')
+        } else {
+            setRadioSelect(null)
+        }
+
+    }, [selectExercise])
+
+    console.log('hi')
+
+    useEffect(() => {
+        if (selectBp === null) {
+            return;
+        } else {
         let url;
         if (selectBp === "All") {
             url = `/workouts`
@@ -71,18 +98,8 @@ function StartExercise( { currentUser } ) {
             if (data) { setErrors(data.error) }
         })
         .catch(error => { console.log(error) })
-    }, [selectBp])
+}}, [selectBp])
 
-    useEffect(() => {
-        fetch(`/user_workouts/?user_id=${currentUser.id}&date=${formattedDate}`)
-        .then(res => {
-            if (res.ok) {
-                res.json().then(res => setPerformedExercises(res))
-            } else {
-                return res.json()
-            }
-        })
-    }, [selectExercise])
 
     const getExerciseByDifficulty = exercise.filter(ex => {
         if (filterExercise === '') return true;
@@ -136,13 +153,14 @@ function StartExercise( { currentUser } ) {
         })
         .then(res => {
             if (res.ok) {
+
                 setSelectExercise("");
                 setEraseInput(false);
                 formData.reps_performed = 0;
                 formData.intensity = 0;
                 formData.bw = false;
                 setSeconds(0)
-                return res.json()
+                res.json().then(res => setPerformedExercises([...performedExercises, res]))
             } else {
                 return res.json()
             }
@@ -218,7 +236,7 @@ function StartExercise( { currentUser } ) {
                     </div>
                 <form className='selected-exercise' onSubmit={handleSubmit}>
                         {selectExercise ?
-                            <Set setFormData={setFormData} handleToggleDisplay={handleToggleDisplay} seconds={seconds} setSeconds={setSeconds} currentUser={currentUser} setEraseInput={setEraseInput} eraseInput={eraseInput} selectExercise={selectExercise} errors={errors} formData={formData} handleChange={handleChange}/>
+                            <Set setFormData={setFormData} setRadioSelect={setRadioSelect} radioSelect={radioSelect} handleToggleDisplay={handleToggleDisplay} seconds={seconds} setSeconds={setSeconds} currentUser={currentUser} setEraseInput={setEraseInput} eraseInput={eraseInput} selectExercise={selectExercise} errors={errors} formData={formData} handleChange={handleChange}/>
                             : ""}
                 </form>
             </div>

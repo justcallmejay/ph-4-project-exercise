@@ -12,9 +12,9 @@ class WorkoutsController < ApplicationController
         render json: workout, status: :ok
     end
 
-    def get_user_counts
-        workout = Workout.find_by(id: params[:id]).users.uniq
-        render json: workout.length, status: :ok
-    end
+    # def get_user_counts
+    #     workout = Workout.find_by(id: params[:id]).users.uniq
+    #     render json: workout.length, status: :ok
+    # end
 
 end
