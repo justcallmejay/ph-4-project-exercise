@@ -21,7 +21,7 @@ function App() {
         res.json().then((user) => { setCurrentUser(user) })
       }
     })
-  }, [])
+  }, [setCurrentUser])
 
   function updateUser(user) {
     setCurrentUser(user)

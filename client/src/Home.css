@@ -96,3 +96,23 @@ ul > li {
     width: 80%;
     height: 40%;
 }
+
+@media (max-width: 768px) {
+    .home-container {
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+    .home-login-container {
+        width: 600px;
+        height: 30%;
+    }
+    .home-title-container {
+        height: 30%;
+        width: 600px;
+    }
+
+    .home-img-container {
+        height: 250px;
+    }
+}
